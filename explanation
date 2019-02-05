@@ -1,0 +1,10 @@
+Extract:
+Both databases used came from the Texas Ethics Commission, a state agency that collects disclosure data on campaign finances, lobbying, personal finances state officials and more. For this project, I used the Acknowledged 1295 Certificate database (69.9 MB) and the Campaign Finance Report database (504.7 MB), which are both large csv files. I loaded the csv files into pandas.
+
+Transform:
+First, I tackled the contribution database. The contribution data was split into 38 separate files. Rather than import and merge all of them, I decided to use only files 26 through 38 as they contained only data from mid 2015 onwards. The contracting data started in January 2016, so I wanted the time frames to match roughly. We'd expect to see contributions made before the date of the contract, although I wasn't planning on doing analysis on the timing.
+To clean the contributions, I excluded all the data that wasn't from candidates; we only want to do analysis on contributions made to state or legislative officeholders or candidates, not to political committees or judicial candidates. I kept only the necesary columns, renamed them, and then decided to split the dataframe based on whether or not the contribution came from an indivudual or an organization. I then grouped on contributor name.
+The contracting data came in two tables, Box123, which included data on the government entity, the business that got the contract, a description of the goods and services out for contract, etc. I excluded the governmental entities, like cities, counties and universities,  that weren't state agencies or commissions. The other table, Interested Parties, contained data on the businesses that won the contracts: the organization name, address, and names of individual stakeholders in the organization. I dropped the unnecessary columns, and renamed certain columns in both tables. I merged the two tables on Business name, but decided to split the dataframes on entity vs. individal, like the contributions table. I then grouped each table by entity or individual.
+
+Load:
+I created a database and three tables in SQL, then
